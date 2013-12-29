@@ -18,16 +18,24 @@
 
     <body>
     	<header>
-    		@if ( ! Sentry::check() )
-    		{{ link_to('foo/bar', 'Login', $attributes = array(), $secure = null) }}
-    		or
-    		{{ link_to('foo/bar', 'Register', $attributes = array(), $secure = null) }}
+    		{{ link_to('/', 'Home') }} |
 
+    		@if ( ! Sentry::check() )
+    		{{ link_to('user/login', 'Login', $attributes = array(), $secure = null) }}
+    		or
+    		{{ link_to('user/add', 'Register', $attributes = array(), $secure = null) }}
+			
+			@else 
+			{{ link_to('user/dashboard', 'Dashboard', $attributes = array(), $secure = null )}}
+			{{ link_to('user/logout', 'Logout', $attributes = array(), $secure = null )}}
     		@endif
 
     	</header>
+
+    	<hr />
+
         <div class="container">
             @yield('content')
         </div>
     </body>
-</html>
+</html>	

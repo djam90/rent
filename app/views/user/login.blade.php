@@ -1,9 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
-    <h1>Add User Page</h1>
+    <h1>Login</h1>
 
-{{ Form::open(array('url' => 'user/add')) }}
+{{ Session::get('message') }}
+
+{{ Form::open(array('url' => 'user/login')) }}
 
 {{ Form::label('email', 'E-Mail Address') }}
 {{ Form::text('email') }}
@@ -12,7 +14,7 @@
 {{ Form::password('password') }}
 
 
-{{ Form::submit('Submit') }}
+{{ Form::submit('Login') }}
 
 {{ Form::close() }}
 
