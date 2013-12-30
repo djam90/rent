@@ -96,4 +96,6 @@ class UserController extends BaseController
 		return View::make('user/dashboard');
 	}
 
+	
+
 }

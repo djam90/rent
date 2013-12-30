@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
-<html class="no-js" lang="en" >
+<html>
 
 <head>
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  	<link rel="stylesheet" type="text/css" href="{{ asset('css/normalize.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/foundation-min.css') }}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-theme.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 
-	<script src="{{ asset('js/vendor/jquery.js') }}"></script>
-	<script src="{{ asset('js/vendor/foundation-min.js') }}"></script>
-	<script>
-    $(document).foundation();
-  </script>
+
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
 </head>
 
     <body>
-    	<header>
+        <header>
     		{{ link_to('/', 'Home') }} |
 
     		@if ( ! Sentry::check() )
@@ -37,5 +37,11 @@
         <div class="container">
             @yield('content')
         </div>
+
+        <!-- Javascript -->
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://code.jquery.com/jquery.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     </body>
 </html>	
