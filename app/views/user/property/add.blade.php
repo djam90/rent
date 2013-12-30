@@ -2,34 +2,55 @@
 
 @section('content')
 
-
+<div class="row">
+	<div class="col-sm-6">
 		<h1>Add Property</h1>
+	</div>	
+</div>
+
 
 
 {{ Session::get('message') }}
 
-{{ Form::open(array('url' => 'property/add', 'data-abide' => true)) }}
+{{ Form::open(array('url' => 'property/add', 'class' => 'form-horizontal')) }}
 
+<!-- Property Title -->
+<div class="form-group">
+	{{ Form::label('title', 'Property Title',array('class' => 'col-sm-2 control-label')) }}
+	<div class="col-sm-4">
+		{{ Form::text('title','', array('required' => true,'class' => 'form-control')) }}
+	</div>
+</div>
 
-		{{ Form::label('title', 'Property Title') }}
-		{{ Form::text('title','', array('required' => true)) }}
+<!-- Property Description -->
+<div class="form-group">
+	{{ Form::label('description', 'Property Description',array('class' => 'col-sm-2 control-label')) }} 
+	<div class="col-sm-4">
+		{{ Form::text('description','', array('required' => true,'class' => 'form-control')) }}
+	</div>
+</div>
 
-		{{ Form::label('description', 'Property Description') }} 
-		{{ Form::text('description','', array('required' => true)) }}
+<!-- Number of Rooms -->
+<div class="form-group">
+	{{ Form::label('no_of_rooms', 'Number of Rooms',array('class' => 'col-sm-2 control-label')) }}
+	<div class="col-sm-4">
+		{{ Form::text('no_of_rooms','', array('required' => true,'class' => 'form-control')) }}
+	</div>
+</div>
 
-		{{ Form::label('no_of_rooms', 'Number of Rooms') }}
-		{{ Form::text('no_of_rooms','', array('required' => true, 'pattern' => 'number')) }}
+<!-- Monthly Rent -->
+<div class="form-group">
+	{{ Form::label('monthly_rent', 'Monthly Rent',array('class' => 'col-sm-2 control-label')) }}
+	<div class="col-sm-4">
+		<div class="input-group">
+			<span class="input-group-addon">£</span>
+			{{ Form::text('monthly_rent','', array('required' => true, 'class' => 'form-control')) }}
+		</div>
+	</div>
+</div>
 
-
-
-
-		{{ Form::label('monthly_rent', 'Monthly Rent') }}
-
-		<span class="prefix">£</span>
-
-				{{ Form::text('monthly_rent','', array('required' => true, 'pattern' => 'number')) }}
-
-		{{ Form::submit('Submit',array('class' => 'button')) }}
+		{{ Form::submit('Submit',array('class' => 'btn btn-primary btn-lg')) }}
+		<button type="button" class="btn btn-danger btn-lg"> Reset</button>
 
 {{ Form::close() }}
 

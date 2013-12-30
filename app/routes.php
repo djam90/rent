@@ -20,5 +20,5 @@ Route::get('user/dashboard','UserController@getDashboard');
 
 Route::get('property/list','PropertyController@listProperties');
 
-Route::get('property/add','PropertyController@getAddProperty');
+Route::get('property/add', array('before' => 'auth', 'uses' => 'PropertyController@getAddProperty'));
 Route::post('property/add','PropertyController@postAddProperty');
