@@ -1,0 +1,23 @@
+/*body { 
+  background: url(/img/bg.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+*/
+
+.search_left_bar{
+	background: grey;
+	min-height:600px;
+}
+
+.search_results_container{
+	background: red;
+	min-height: 200px;
+}
+
+.search_results_property_container{
+	border:1px solid black;
+	margin: 2px;
+}

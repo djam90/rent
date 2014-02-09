@@ -2,11 +2,13 @@
 
 class UserController extends BaseController
 {
+	// Display the Add User page
 	public function getAddUser()
 	{
-		return View::make('user/add');
+		return View::make('users/add');
 	}
 
+	// Process the Add User submission
 	public function postAddUser()
 	{
 		try
@@ -36,11 +38,13 @@ class UserController extends BaseController
 		}
 	}
 
+	// Display Login page
 	public function getLogin()
 	{
-		return View::make('user/login');
+		return View::make('users/login');
 	}
 
+	// Process Login form
 	public function postLogin()
 	{
 		try
@@ -57,8 +61,8 @@ class UserController extends BaseController
 		    // Log the user in
     		Sentry::login($user, false);
 
-    		// @TODO - redirect to user dashboard
-    		return Redirect::to('user/dashboard')->with('message', 'Successfully Logged In!');
+    		// Redirect to user dashboard
+    		return Redirect::to('admin/dashboard')->with('message', 'Successfully Logged In!');
 
 		}
 		catch (Cartalyst\Sentry\Users\LoginRequiredException $e)
@@ -82,20 +86,35 @@ class UserController extends BaseController
 		    $msg = 'User is not activated.';
 		}
 
-		return Redirect::to('user/login')->with('message',$msg);
+		return Redirect::to('users/login')->with('message',$msg);
 	}
 
+	// Logs out the user
 	public function getLogout()
 	{
 		Sentry::logout();
 		return Redirect::to('/');
 	}
 
+	// Display the user dashboard
 	public function getDashboard()
 	{
-		return View::make('user/dashboard');
+		$user = Sentry::getUser();
+		$count = Property::where('user_id', '=', $user->id)->count();
+		$data = array(
+			'total_properties' => $count
+			);
+		return View::make('admin/dashboard')->with('data',$data);
 	}
 
-	
+	public function getDashboard1()
+	{
+		$user = Sentry::getUser();
+		$count = Property::where('user_id', '=', $user->id)->count();
+		$data = array(
+			'total_properties' => $count
+			);
+		return View::make('admin/dashboard1')->with('data',$data);
+	}
 
 }

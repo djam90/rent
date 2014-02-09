@@ -9,13 +9,8 @@ class PropertyController extends BaseController
 
 		// Get associated properties
 		$properties = $user->properties;
-
-		return View::make('user/property/list')->with('properties',$properties);
-	}
-
-	public function getAddProperty()
-	{
-		return View::make('user/property/add');
+		
+		return View::make('admin/property/list')->with('properties',$properties);
 	}
 
 	public function postAddProperty()
@@ -54,5 +49,35 @@ class PropertyController extends BaseController
 			echo "failed somewhere";
 		}
 
+	}
+
+	public function postEditProperty($id)
+	{
+		$property_id = $id;
+		$property = Property::find($property_id);
+
+		// Get Input
+		$p_title = Input::get('title');
+		$p_description = Input::get('description');
+		$p_no_of_rooms = Input::get('no_of_rooms');
+		$p_monthly_rent = Input::get('monthly_rent');
+
+		// @TODO -> Validation
+
+		// Update Fields
+		$property->title = $p_title;
+		$property->description = $p_description;
+		$property->no_of_rooms = $p_no_of_rooms;
+		$property->monthly_rent = $p_monthly_rent;
+
+		// Attempt Save
+		if( $property->save() )
+		{
+			echo "Successfully Updated";
+		}
+		else
+		{
+			echo "failed somewhere";
+		}
 	}
 }
