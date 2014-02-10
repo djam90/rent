@@ -2,11 +2,16 @@
 
 @section('content')
 
+<div class="container-fluid">
 <!-- Main Content -->
-<div class="container">
-	<h1 class="page-header">My Properties	
-		<a href="{{ route('admin_addProperty') }}"><button type="button" class="btn btn-primary">Add Property</button></a>
-	</h1>
+
+	<div class="row">
+		<h1 class="page-header">My Properties	
+			<a href="{{ route('admin_addProperty') }}">
+				<button type="button" class="btn btn-primary">Add Property</button>
+			</a>
+		</h1>
+	</div>
 
 	{{ Session::get('message') }}
 
