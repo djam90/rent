@@ -2,4 +2,4 @@
 /vendor
 composer.phar
 .DS_Store
-Thumbs.db
+Thumbs.dbapp/config/production/database.php
