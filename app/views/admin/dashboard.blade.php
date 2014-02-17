@@ -1,12 +1,11 @@
 @extends('admin.layouts.master')
 
 @section('content')
-
 	<div class="container-fluid">
     	<?php
 		if (Session::has('message')) : ?>
 		<div class="row">
-			<div class="alert alert-success alert-dismissable">
+			<div class="alert alert-success alert-dismissable" style="margin-top:20px; margin-bottom:0px;">
 		  		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				{{ Session::get('message') }}
 			</div>

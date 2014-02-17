@@ -2,11 +2,19 @@
 
 @section('content')
 
-<div class="container">
+<div class="container-fluid">
 
-<h1>Add Property</h1>
+<div class="row">
+	<h1>Add Property</h1>
+</div>
+
+
 
 {{ Session::get('message') }}
+
+
+
+<h2>Main Details</h2>
 
 {{ Form::open( array('route' => 'admin_postAddProperty','class' => 'form-horizontal') ) }}
 
@@ -48,7 +56,14 @@
 		{{ Form::submit('Submit',array('class' => 'btn btn-primary btn-lg')) }}
 		<button type="button" class="btn btn-danger btn-lg"> Reset</button>
 
-{{ Form::close() }}
 
+
+
+	<h2>Address Details</h2>
+
+	<h2>Add Images</h2>
+
+
+{{ Form::close() }}
 </div><!-- .container -->
 @stop

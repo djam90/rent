@@ -2,12 +2,19 @@
 
 /*
 |--------------------------------------------------------------------------
-| Main Routes
+| Other
 |--------------------------------------------------------------------------
 */
 
 // Home Route, base directory
 Route::get('/', array('as' => 'home','uses' => 'HomeController@getHome'));
+
+		
+/*
+|--------------------------------------------------------------------------
+| Auth
+|--------------------------------------------------------------------------
+*/
 
 // To display the add user page, and to submit form
 Route::get('user/add',array('as' => 'register','uses' => 'UserController@getAddUser'));
@@ -20,18 +27,42 @@ Route::post('user/login','UserController@postLogin');
 // To logout
 Route::get('admin/logout',array('as' => 'admin_logout','uses' => 'UserController@getLogout'));
 
-// Display add property page, and submit form
-
+		
+/*
+|--------------------------------------------------------------------------
+| Search
+|--------------------------------------------------------------------------
+*/
 
 // Search
 Route::get('search','SearchController@getSearch');
 
 
-/* ----------------------------- 
-   Dashboard
-   ----------------------------- 
 
- **************** General ****************/
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////
+// 				            ADMIN PANEL   			  		 	//
+//////////////////////////////////////////////////////////////////
+/*
+|--------------------------------------------------------------------------
+| Dashboard
+|--------------------------------------------------------------------------
+*/
+
+
+Route::group(array('before' => 'auth'), function()
+{
 // Display User Dashboard
 Route::get('admin/dashboard', array('as' => 'admin_dashboard', 'uses' => 'UserController@getDashboard'));
 
@@ -46,31 +77,43 @@ Route::get('admin/messages', array('as' => 'admin_messages', 'before' => 'auth',
 // Display User Statistics
 Route::get('admin/statistics', array('as' => 'admin_statistics', 'before' => 'auth', function()
 	{ return View::make('admin/statistics'); } ));
+});
 
-/**
- * **************** Property Management *****************
- */
+
+		
+/*
+|--------------------------------------------------------------------------
+| Property Management
+|--------------------------------------------------------------------------
+*/
+
+Route::group(array('before' => 'auth'),function()
+{
 // Display User Properties
-Route::get('admin/properties', array('before' => 'auth','as' => 'admin_properties', 'uses' => 'PropertyController@listProperties'));
+Route::get('admin/properties', array('as' => 'admin_properties', 'uses' => 'PropertyController@listProperties'));
 
-// Display the "Add Property" page
-Route::get('admin/addProperty', array('as' => 'admin_addProperty','before' => 'auth',function()
-	{ return View::make('admin/property/add'); } ));
+// Add Property
+Route::get('admin/addProperty', array('as' => 'admin_addProperty', 'uses' => 'PropertyController@getAddProperty'));
+Route::post('admin/addProperty',array('as' => 'admin_postAddProperty', 'uses' => 'PropertyController@postAddProperty'));
 
-// Process "Add Property" form
-Route::post('admin/addProperty',array('before' => 'auth', 'as' => 'admin_postAddProperty', 'uses' => 'PropertyController@postAddProperty'));
+//Edit Property
+Route::get('admin/property/edit/{id}',array('as'=>'admin_editProperty','uses'=>'PropertyController@getEditProperty'));
+Route::post('property/edit/{id}',array('as' =>'admin_postEditProperty','uses'=>'PropertyController@postEditProperty'));
 
-// Display "Edit Property" page
-Route::get('admin/property/edit/{id}', array('as' => 'admin_editProperty','before' => 'auth',function($id)
-	{ 
-		$user = Sentry::getUser();
-		$property = Property::find($id);
-		return View::make('admin/property/edit')->with('property',$property); } ));
+Route::post('property/editImage',array('as' => 'update_image_title', 'uses' => 'PropertyController@update_image_title'));
 
-// Process "Edit Property" form
-Route::post('property/edit/{id}', array('as' => 'admin_postEditProperty', 'uses' => 'PropertyController@postEditProperty','before' => 'auth'));
+}); // End Route Group
+
+
+/////////////////
+// Test Routes //
+/////////////////
 
 Route::get('a',function()
 {
 	echo App::environment();
 });
+
+Route::get('test', 'Admin\Controllers\TestController@test');
+
+Route::any('upload/image', 'PropertyController@upload_image');

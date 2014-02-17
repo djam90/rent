@@ -2,6 +2,11 @@
 
 class UserController extends BaseController
 {
+
+	/**
+	 *  Signup
+	 */
+	
 	// Display the Add User page
 	public function getAddUser()
 	{
@@ -105,16 +110,6 @@ class UserController extends BaseController
 			'total_properties' => $count
 			);
 		return View::make('admin/dashboard')->with('data',$data);
-	}
-
-	public function getDashboard1()
-	{
-		$user = Sentry::getUser();
-		$count = Property::where('user_id', '=', $user->id)->count();
-		$data = array(
-			'total_properties' => $count
-			);
-		return View::make('admin/dashboard1')->with('data',$data);
 	}
 
 }

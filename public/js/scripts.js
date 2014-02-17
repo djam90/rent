@@ -10,15 +10,15 @@ $(document).on("click", "#editModalButton", function () {
      // $('#addBookDialog').modal('show');
 });
 
+//turn to inline mode
+
+
+$(document).ready(function() {
+	$.fn.editable.defaults.mode = 'inline';
+    $('.edit_image_title').editable();
+});
 
 
 
-$(document).ready(function(){
-	First determine the current tab
-	Have a click event
-	$('a[data-toggle="tab"]').click(function (e) {
-		$('#edit_nav_tabs').children().each(function(){
-			console.log( $(this).children()) ;
-		}); // end children.each
-	}); // end click function
-}); // end document ready
+// jQuery
+$("button.image_upload_button").dropzone({ url: "/upload/image" });

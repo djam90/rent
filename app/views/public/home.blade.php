@@ -2,7 +2,18 @@
 
 @section('content')
 	<div class="container">
-		{{ Session::get('message') }}
+	
+	<?php
+	if (Session::has('message')) : ?>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="alert alert-success alert-dismissable">
+		  		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				{{ Session::get('message') }}
+			</div>
+		</div>
+	</div>
+	<?php endif; ?>
 
 <div class="jumbotron">
 	<div class="page-header">

@@ -13,6 +13,12 @@ class PropertyController extends BaseController
 		return View::make('admin/property/list')->with('properties',$properties);
 	}
 
+	public function getAddProperty()
+	{
+		return View::make('admin/property/add');
+	}
+
+
 	public function postAddProperty()
 	{
 		// TODO
@@ -51,6 +57,13 @@ class PropertyController extends BaseController
 
 	}
 
+	public function getEditProperty($id)
+	{
+		$user = Sentry::getUser();
+		$property = Property::find($id);
+		return View::make('admin/property/edit')->with('property',$property);
+	}
+
 	public function postEditProperty($id)
 	{
 		$property_id = $id;
@@ -78,6 +91,75 @@ class PropertyController extends BaseController
 		else
 		{
 			echo "failed somewhere";
+		}
+	}
+
+	/*
+		Ajax function to update image title when editing property
+	 */
+	public function update_image_title()
+	{
+		$inputs = Input::all();
+
+        $image = PropertyImage::find($inputs['pk']);
+
+        $image->$inputs['name'] = $inputs['value'];
+
+        try
+		{ 
+         	$image->save();
+        }
+        catch (Exception $e)
+		{
+		 	throw new Exception( 'Something really gone wrong', 0, $e);
+		 	return Response::make('Something went wrong', 400);
+		}
+
+        return Response::make();
+	}
+
+	public function remove_image()
+	{
+		$inputs = Input::all();
+
+		$image = PropertyImage::find($inputs['pk']);
+
+		try
+		{
+			$image->delete();
+		}
+		catch (Exception $e)
+		{
+		 	throw new Exception( 'Something really gone wrong', 0, $e);
+		 	return Response::make('Something went wrong', 400);
+		}
+
+		return Response::make();
+	}
+
+	public function upload_image()
+	{
+		$input = Input::all();
+		$rules = array(
+			'file' => 'image|max:3000',
+		);
+
+		$validation = Validator::make($input, $rules);
+
+		if ($validation->fails())
+		{
+			return Response::make($validation->errors->first(), 400);
+		}
+
+		$file = Input::file('file');
+
+		if( Input::hasFile('file') ) 
+		{
+			return Response::json('success', 200);
+		} 
+		else 
+		{
+			return Response::json('error', 400);
 		}
 	}
 }

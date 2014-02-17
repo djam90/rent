@@ -7,6 +7,10 @@
 }
 */
 
+body {
+	padding-top: 70px;
+}
+
 .search_left_bar{
 	background: grey;
 	min-height:600px;
