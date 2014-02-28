@@ -1,5 +1,18 @@
 <?php
 
+// Bindings
+
+
+
+App::bind('App\Property\PropertyRepositoryInterface', 'App\Property\PropertyRepository');
+
+
+
+
+Route::resource('properties','PropertyController');
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Other
@@ -104,6 +117,8 @@ Route::post('property/editImage',array('as' => 'update_image_title', 'uses' => '
 
 }); // End Route Group
 
+Route::resource('property', 'PropertyController',array('before' => 'auth'));
+
 
 /////////////////
 // Test Routes //
@@ -114,6 +129,13 @@ Route::get('a',function()
 	echo App::environment();
 });
 
-Route::get('test', 'Admin\Controllers\TestController@test');
+Route::get('test1', function(){
+	
+});
 
-Route::any('upload/image', 'PropertyController@upload_image');
+
+/*
+	Ajax Routes
+ */
+Route::any('upload/image', 'AjaxController@upload_image');
+Route::post('deleteImage', 'AjaxController@remove_image');

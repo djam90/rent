@@ -1,4 +1,4 @@
- <div id="wrapper">
+
 
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -259,7 +259,7 @@
                         <!-- /.nav-second-level -->
                     <!--</li>-->
                     <li>
-                        <a href="{{ route('admin_properties') }}"><i class="fa fa-table fa-fw"></i> Properties</a>
+                        <a href="{{ route('property.index') }}"><i class="fa fa-table fa-fw"></i> Properties</a>
                     </li>
                     <li>
                         <a href="{{ route('admin_messages') }}"><i class="fa fa-envelope fa-fw"></i> Messages</a>

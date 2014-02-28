@@ -16,7 +16,7 @@
 
 <h2>Main Details</h2>
 
-{{ Form::open( array('route' => 'admin_postAddProperty','class' => 'form-horizontal') ) }}
+{{ Form::open( array('route' => 'property.store','class' => 'form-horizontal') ) }}
 
 <!-- Property Title -->
 <div class="form-group">

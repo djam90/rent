@@ -11,6 +11,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('font-awesome/css/font-awesome.css') }}">
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/dropzone.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin_style.css') }}">
 
 
 
@@ -30,7 +32,7 @@
             </div>
             <!-- /#page-wrapper -->
 
-        </div>
+        </div><!-- #wrapper -->
         <!-- /#wrapper -->
 
         <!-- Javascript -->

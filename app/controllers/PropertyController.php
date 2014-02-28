@@ -1,70 +1,109 @@
 <?php
 
-class PropertyController extends BaseController
-{
-	public function listProperties()
-	{
-		// Get User
-		$user = Sentry::getUser();
+use App\Property\PropertyRepositoryInterface;
 
-		// Get associated properties
-		$properties = $user->properties;
+class PropertyController extends \BaseController {
+
+    /**
+     * @var App\Property\PropertyRepositoryInterface
+     */
+    protected $property;
+
+    /**
+     * @param PropertyRepositoryInterface $property
+     */
+    public function __construct(PropertyRepositoryInterface $property)
+    {
+    	parent::__construct(); // to get the user
+        $this->property = $property;
+    }
+
+	/**
+	 * Display list of properties.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+        if(! Sentry::check())
+        {
+            return Redirect::to('/')->with('message', 'You need to be logged in to view this page');
+        }
+		else
+        {
+            $properties = $this->property->getAllByUser($this->user);
+            return View::make('admin/property/list')->with('properties',$properties);
+        }
+
 		
-		return View::make('admin/property/list')->with('properties',$properties);
 	}
 
-	public function getAddProperty()
+	/**
+	 * Show the form for creating a new property.
+	 *
+	 * @return Response
+	 */
+	public function create()
 	{
 		return View::make('admin/property/add');
 	}
 
-
-	public function postAddProperty()
+	/**
+	 * Store a newly created property in storage.
+	 *
+	 * @return Response
+	 */
+	public function store()
 	{
-		// TODO
-		// Parse data from form
-		// Validate it
-		// Add to database
-		// redirect user back to property list (or dashboard)
-		
-		// Get User
-		$user = Sentry::getUser();
+		$creator = App::make('App\Property\PropertyCreator');
 
-		// Get Input
-		$p_title = Input::get('title');
-		$p_description = Input::get('description');
-		$p_no_of_rooms = Input::get('no_of_rooms');
-		$p_monthly_rent = Input::get('monthly_rent');
-
-		// Validation
-		
-		// Fill Property object and save
-		$property = new Property;
-		$property->user_id = $user->id;
-		$property->title = $p_title;
-		$property->description = $p_description;
-		$property->no_of_rooms = $p_no_of_rooms;
-		$property->monthly_rent = $p_monthly_rent;
-
-		if( $property->save() )
-		{
-			echo "successfully added";
-		}
-		else
-		{
-			echo "failed somewhere";
-		}
-
+        return $creator->create($this->property, Input::all());
 	}
 
-	public function getEditProperty($id)
+    public function propertyCreationSuccess($property)
+    {
+        return Redirect::route('property.edit',array($property->id))->with('message', 'Property Successfully Added');
+    }
+
+    public function propertyCreationFailed()
+    {
+        
+    }
+
+
+
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		//
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
 	{
 		$user = Sentry::getUser();
 		$property = Property::find($id);
 		return View::make('admin/property/edit')->with('property',$property);
 	}
 
-	public function postEditProperty($id)
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
 	{
 		$property_id = $id;
 		$property = Property::find($property_id);
@@ -94,72 +133,26 @@ class PropertyController extends BaseController
 		}
 	}
 
-	/*
-		Ajax function to update image title when editing property
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
 	 */
-	public function update_image_title()
+	public function destroy($id)
 	{
-		$inputs = Input::all();
-
-        $image = PropertyImage::find($inputs['pk']);
-
-        $image->$inputs['name'] = $inputs['value'];
-
-        try
-		{ 
-         	$image->save();
-        }
-        catch (Exception $e)
-		{
-		 	throw new Exception( 'Something really gone wrong', 0, $e);
-		 	return Response::make('Something went wrong', 400);
-		}
-
-        return Response::make();
-	}
-
-	public function remove_image()
-	{
-		$inputs = Input::all();
-
-		$image = PropertyImage::find($inputs['pk']);
+		$property = $this->property->getByID($id);
 
 		try
 		{
-			$image->delete();
+			$property->delete();
+			return Response::make();
 		}
 		catch (Exception $e)
 		{
-		 	throw new Exception( 'Something really gone wrong', 0, $e);
+		 	throw new Exception( 'Something really went wrong', 0, $e);
 		 	return Response::make('Something went wrong', 400);
 		}
-
-		return Response::make();
 	}
 
-	public function upload_image()
-	{
-		$input = Input::all();
-		$rules = array(
-			'file' => 'image|max:3000',
-		);
-
-		$validation = Validator::make($input, $rules);
-
-		if ($validation->fails())
-		{
-			return Response::make($validation->errors->first(), 400);
-		}
-
-		$file = Input::file('file');
-
-		if( Input::hasFile('file') ) 
-		{
-			return Response::json('success', 200);
-		} 
-		else 
-		{
-			return Response::json('error', 400);
-		}
-	}
 }
