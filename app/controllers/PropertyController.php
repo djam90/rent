@@ -1,41 +1,31 @@
 <?php
 
-use App\Property\PropertyRepositoryInterface;
+use App\Property\PropertyServiceInterface;
 
 class PropertyController extends \BaseController {
 
     /**
-     * @var App\Property\PropertyRepositoryInterface
+     * @var App\Property\PropertyServiceInterface
      */
-    protected $property;
+    protected $service;
 
     /**
-     * @param PropertyRepositoryInterface $property
+     * @param PropertyServiceInterface $service
      */
-    public function __construct(PropertyRepositoryInterface $property)
+    public function __construct(PropertyServiceInterface $service)
     {
-    	parent::__construct(); // to get the user
-        $this->property = $property;
+        $this->service = $service;
     }
 
 	/**
-	 * Display list of properties.
+	 * Display list of user properties.
 	 *
 	 * @return Response
 	 */
 	public function index()
 	{
-        if(! Sentry::check())
-        {
-            return Redirect::to('/')->with('message', 'You need to be logged in to view this page');
-        }
-		else
-        {
-            $properties = $this->property->getAllByUser($this->user);
-            return View::make('admin/property/list')->with('properties',$properties);
-        }
-
-		
+        $properties = $this->service->index();
+        return View::make('admin/property/list')->with('properties',$properties); 
 	}
 
 	/**
@@ -55,23 +45,32 @@ class PropertyController extends \BaseController {
 	 */
 	public function store()
 	{
-		$creator = App::make('App\Property\PropertyCreator');
+		try
+		{
+			$validator = new App\Validators\PropertyValidator();
+			$validator->validateForCreation( Input::all() );
+		}
+		catch (\App\Exceptions\ValidationException $e)
+		{
+			return Redirect::back()->withInput()->withErrors($e->getErrors());
+		}
 
-        return $creator->create($this->property, Input::all());
+
+
+
+		try
+		{
+			$this->service->create(Input::all());
+			return Redirect::route('property.index')->with('message', 'Property Successfully Added');
+
+		}
+		catch(\Exception $e)
+		{
+			return Redirect::back()->withInput()->withErrors($e);
+		}
+        	
+                
 	}
-
-    public function propertyCreationSuccess($property)
-    {
-        return Redirect::route('property.edit',array($property->id))->with('message', 'Property Successfully Added');
-    }
-
-    public function propertyCreationFailed()
-    {
-        
-    }
-
-
-
 
 	/**
 	 * Display the specified resource.

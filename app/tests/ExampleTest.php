@@ -2,27 +2,20 @@
 
 class ExampleTest extends TestCase {
 
-	/**
-	 * A basic functional test example.
-	 *
-	 * @return void
-	 */
-	public function testBasicExample()
+	public function tearDown()
 	{
-		$crawler = $this->client->request('GET', '/');
-
-		$this->assertTrue($this->client->getResponse()->isOk());
+		Mockery::close();
 	}
 
-	public function testPropertyControllerIndex()
+	
+	public function test()
 	{
-		$user = Sentry::findUserById(1);
-		Sentry::login($user, false);
+		// Arrange		
+		$sentry = Mockery::mock('Sentry');
+		Sentry::shouldReceive('getUser')->once()->andReturn($userInst);
 
-		$this->call('GET', 'properties');
-		$this->assertEquals($user->id, 1); 
-		$this->assertResponseOk();
-
+		// Act
+		$property = new Property();
 	}
 
 }

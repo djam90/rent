@@ -8,11 +8,16 @@
 	<h1>Add Property</h1>
 </div>
 
-
-
 {{ Session::get('message') }}
 
-
+<?php if ($errors->any()): ?>
+	<div class="alert alert-danger">
+		The following errors occurred:
+		<?php foreach($errors->all('<li>:message</li>') as $message): ?>
+			<?=$message?>
+		<?php endforeach; ?>
+	</div>
+<?php endif; ?>    
 
 <h2>Main Details</h2>
 

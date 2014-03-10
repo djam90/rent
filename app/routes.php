@@ -1,16 +1,11 @@
 <?php
 
 // Bindings
-
-
-
 App::bind('App\Property\PropertyRepositoryInterface', 'App\Property\PropertyRepository');
+App::bind('App\Property\PropertyServiceInterface', 'App\Property\PropertyService');
 
-
-
-
+// Resources
 Route::resource('properties','PropertyController');
-
 
 
 /*
