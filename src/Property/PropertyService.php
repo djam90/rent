@@ -5,6 +5,8 @@ use User;
 
 class PropertyService implements PropertyServiceInterface
 {
+    protected $property;
+
     public function __construct(PropertyRepositoryInterface $property)
     {
         $this->property = $property;
