@@ -45,6 +45,7 @@ class PropertyController extends \BaseController {
 	 */
 	public function store()
 	{
+		// Validation
 		try
 		{
 			$validator = new App\Validators\PropertyValidator();
@@ -55,21 +56,16 @@ class PropertyController extends \BaseController {
 			return Redirect::back()->withInput()->withErrors($e->getErrors());
 		}
 
-
-
-
+		// Create Property
 		try
 		{
 			$this->service->create(Input::all());
 			return Redirect::route('property.index')->with('message', 'Property Successfully Added');
-
 		}
 		catch(\Exception $e)
 		{
-			return Redirect::back()->withInput()->withErrors($e);
-		}
-        	
-                
+			return Redirect::back()->withInput()->withErrors($e->getErrors());
+		}                
 	}
 
 	/**
@@ -104,6 +100,17 @@ class PropertyController extends \BaseController {
 	 */
 	public function update($id)
 	{
+		// Validation
+		try
+		{
+			$validator = new App\Validators\PropertyValidator();
+			$validator->validateForUpdate( Input::all() );
+		}
+		catch (\App\Exceptions\ValidationException $e)
+		{
+			return Redirect::back()->withInput()->withErrors($e->getErrors());
+		}
+
 		$property_id = $id;
 		$property = Property::find($property_id);
 

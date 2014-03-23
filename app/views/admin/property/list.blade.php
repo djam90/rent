@@ -29,7 +29,7 @@
 
 			<a href="{{ route('admin_properties', $property->id) }}">View</a>
 			---
-			<a href="{{ route('admin_editProperty', $property->id) }}">Edit</a>
+			<a href="{{ route('property.edit', $property->id) }}">Edit</a>
 			---
 			{{ link_to('property/delete/'.$property->id,'Delete') }}
 		</div>

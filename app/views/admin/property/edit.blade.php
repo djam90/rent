@@ -10,10 +10,8 @@
 
 <!-- Nav tabs -->
 <ul class="nav nav-tabs">
-  <li class="active"><a href="#main" data-toggle="tab">Main</a></li>
-  <li><a href="#address" data-toggle="tab">Address</a></li>
-  <li><a href="#images" data-toggle="tab">Images</a></li>
-  <li><a href="#settings" data-toggle="tab">Settings</a></li>
+	<li class="active"><a href="#main" data-toggle="tab">Main</a></li>
+	<li><a href="#images" data-toggle="tab">Images</a></li>
 </ul>
 
 <!-- Tab panes -->
@@ -21,7 +19,7 @@
 	<div class="tab-pane active" id="main">
 		<h2>Main Details</h2>
 
-	{{ Form::model($property, array('route' => array('admin_postEditProperty', $property->id), 'class' => 'form-horizontal')) }}
+	{{ Form::model($property, array('route' => array('property.update', $property->id), 'class' => 'form-horizontal')) }}
 
 	<!-- Property Title -->
 	<div class="form-group">
@@ -58,17 +56,8 @@
 		</div>
 	</div>
 
-	{{ Form::close() }}
-	</div>
 
-
-
-
-	<div class="tab-pane" id="address">
-		<!-- *************** ADDRESS TAB ************** -->
-	<h2>Address Details</h2>
-
-	{{ Form::open(array('route' => 'admin_postEditProperty', 'class' => 'form-horizontal')) }}
+<h2>Address Details</h2>
 
 	<!-- Address 1 -->
 	<div class="form-group">
@@ -113,12 +102,12 @@
 		</div>
 	</div>
 
-	{{ Form::submit('Save', array('class' => 'btn btn-primary col-md-2'))}}
+	<div class="row">
+		{{ Form::submit('Save',array("class" => "btn btn-primary btn-lg")) }}
+	</div>
 
 	{{ Form::close() }}
 	</div>
-
-
 
 
 	<div class="tab-pane" id="images">
@@ -171,7 +160,6 @@
 
 
 
-  <div class="tab-pane" id="settings">...</div>
 </div>
 
 </div><!-- .container-fluid -->

@@ -20,21 +20,17 @@ class PropertyService implements PropertyServiceInterface
 
     public function create($input)
     {        
-        $user_id = \Sentry::getUser()->id;
+        $user = \Sentry::getUser();
+        $user_id = $user->id;
 
         $data = $input;
         $data['user_id'] = $user_id;
 
-        
+        return $created = $this->property->create($data);
+    }
 
-        // Validation
-        $validator = \Validator::make($input, $rules);
-
-		if ($validator->fails())
-	    {
-            throw new \Exception( $validator, $e);	   
-        }
-
-        return $created = $this->property->create($input);
+    public function edit($id, $input)
+    {
+        $property = $this->property->getByID($id);
     }
 }

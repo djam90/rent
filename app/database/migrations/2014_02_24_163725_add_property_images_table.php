@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class AddPropertyImagesTable extends Migration {
@@ -12,12 +11,12 @@ class AddPropertyImagesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('property_images', function(Blueprint $table)
+		Schema::create('property_images', function($table)
 		{
 			$table->increments('id');
-			$table->integer('property_id',11);
-			$table->integer('main',11);
-			$table->integer('image_order',11);
+			$table->integer('property_id');
+			$table->integer('main');
+			$table->integer('image_order');
 			$table->string('path',255);
 			$table->string('title',255);
 			$table->timestamps();
