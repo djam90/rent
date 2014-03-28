@@ -111,32 +111,21 @@ class PropertyController extends \BaseController {
 			return Redirect::back()->withInput()->withErrors($e->getErrors());
 		}
 
-		$property_id = $id;
-		$property = Property::find($property_id);
-
-		// Get Input
-		$p_title = Input::get('title');
-		$p_description = Input::get('description');
-		$p_no_of_rooms = Input::get('no_of_rooms');
-		$p_monthly_rent = Input::get('monthly_rent');
-
-		// @TODO -> Validation
-
-		// Update Fields
-		$property->title = $p_title;
-		$property->description = $p_description;
-		$property->no_of_rooms = $p_no_of_rooms;
-		$property->monthly_rent = $p_monthly_rent;
-
-		// Attempt Save
-		if( $property->save() )
+		// Create Property
+		try
 		{
-			echo "Successfully Updated";
+			$this->service->edit($id);
+			return Redirect::route('property.index')->with('message', 'Property Successfully Updated');
 		}
-		else
+		catch(\Exception $e)
 		{
-			echo "failed somewhere";
-		}
+			return Redirect::back()->withInput();
+		}              
+
+		
+
+
+
 	}
 
 	/**
@@ -147,11 +136,9 @@ class PropertyController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		$property = $this->property->getByID($id);
-
 		try
 		{
-			$property->delete();
+			$this->service->delete($id);
 			return Response::make();
 		}
 		catch (Exception $e)

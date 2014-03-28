@@ -13,10 +13,16 @@
 		</h1>
 	</div>
 
-	{{ Session::get('message') }}
+@if(Session::has("message"))
+	<div class="alert alert-success alert-dismissable">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		{{ Session::get("message") }}
+	</div>
+@endif
+
 
 	@foreach($properties as $property)
-	<div class="media">
+	<div class="media property_list_row">
 		<a class="pull-left" href="#">
 			<img class="media-object" src="/uploads/{{ $property->images->toArray()[0]['path'] or 'default.jpg' }}" alt="..." height="170px" width="170px">
 		</a>
@@ -31,11 +37,11 @@
 			---
 			<a href="{{ route('property.edit', $property->id) }}">Edit</a>
 			---
-			{{ link_to('property/delete/'.$property->id,'Delete') }}
+			<button class="btn btn-primary deletePropertyButton" data-id="{{$property->id}}">Delete</button>
 		</div>
 	</div>
 
-<hr />	
+	<hr />	
 
 	@endforeach
 </div>

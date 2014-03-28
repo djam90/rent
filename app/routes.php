@@ -5,7 +5,6 @@ App::bind('App\Property\PropertyRepositoryInterface', 'App\Property\PropertyRepo
 App::bind('App\Property\PropertyServiceInterface', 'App\Property\PropertyService');
 
 // Resources
-Route::resource('properties','PropertyController');
 
 
 /*
@@ -44,15 +43,6 @@ Route::get('admin/logout',array('as' => 'admin_logout','uses' => 'UserController
 
 // Search
 Route::get('search','SearchController@getSearch');
-
-
-
-
-
-
-
-
-
 
 
 
@@ -124,9 +114,7 @@ Route::get('a',function()
 	echo App::environment();
 });
 
-Route::get('test1', function(){
-	
-});
+Route::get('test1', "LocationController@test");
 
 
 /*

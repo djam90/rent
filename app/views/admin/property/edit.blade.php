@@ -5,7 +5,7 @@
 <div class="container-fluid">
 
 <div class="row">
-	<h1>Update Property Details  <a href="{{ route('admin_properties') }}"><button type="button" class="btn btn-danger btn-lg">Back To Properties</button></a></h1>
+	<h1>Update Property Details  <a href="{{ route('property.index') }}"><button type="button" class="btn btn-danger btn-lg">Back To Properties</button></a></h1>
 </div>
 
 <!-- Nav tabs -->
@@ -19,13 +19,25 @@
 	<div class="tab-pane active" id="main">
 		<h2>Main Details</h2>
 
-	{{ Form::model($property, array('route' => array('property.update', $property->id), 'class' => 'form-horizontal')) }}
+
+<?php if ($errors->any()): ?>
+	<div class="alert alert-danger">
+		The following errors occurred:
+		<?php foreach($errors->all('<li>:message</li>') as $message): ?>
+			<?=$message?>
+		<?php endforeach; ?>
+	</div>
+<?php endif; ?>    
+
+
+
+	{{ Form::model($property, array('route' => array('property.update', $property->id), 'method' => 'PUT' ,'class' => 'form-horizontal')) }}
 
 	<!-- Property Title -->
 	<div class="form-group">
 		{{ Form::label('title', 'Property Title',array('class' => 'col-md-3 control-label')) }}
 		<div class="col-md-3">
-			{{ Form::text('title',NULL, array('required' => true,'class' => 'form-control')) }}
+			{{ Form::text('title',NULL, array('class' => 'form-control')) }}
 		</div>
 	</div>
 
@@ -33,7 +45,7 @@
 	<div class="form-group">
 		{{ Form::label('description', 'Property Description',array('class' => 'col-md-3 control-label')) }} 
 		<div class="col-md-3">
-			{{ Form::text('description',NULL, array('required' => true,'class' => 'form-control')) }}
+			{{ Form::text('description',NULL, array('class' => 'form-control')) }}
 		</div>
 	</div>
 
@@ -41,7 +53,7 @@
 	<div class="form-group">
 		{{ Form::label('no_of_rooms', 'Number of Rooms',array('class' => 'col-md-3 control-label')) }}
 		<div class="col-md-3">
-			{{ Form::text('no_of_rooms',NULL, array('required' => true,'class' => 'form-control')) }}
+			{{ Form::text('no_of_rooms',NULL, array('class' => 'form-control')) }}
 		</div>
 	</div>
 
@@ -51,7 +63,7 @@
 		<div class="col-md-3">
 			<div class="input-group">
 				<span class="input-group-addon">£</span>
-				{{ Form::text('monthly_rent',NULL, array('required' => true, 'class' => 'form-control')) }}
+				{{ Form::text('monthly_rent',NULL, array('class' => 'form-control')) }}
 			</div>
 		</div>
 	</div>
@@ -63,7 +75,7 @@
 	<div class="form-group">
 		{{ Form::label('address_1', 'Address 1',array('class' => 'col-md-2 control-label')) }}
 		<div class="col-md-5">
-			{{ Form::text('address_1',NULL, array('required' => true, 'class' => 'form-control')) }}
+			{{ Form::text('address_1',NULL, array('class' => 'form-control')) }}
 		</div>
 	</div>
 
@@ -71,7 +83,7 @@
 	<div class="form-group">
 		{{ Form::label('address_1', 'Address 2',array('class' => 'col-md-2 control-label')) }}
 		<div class="col-md-5">
-			{{ Form::text('address_2',NULL, array('required' => true, 'class' => 'form-control')) }}
+			{{ Form::text('address_2',NULL, array('class' => 'form-control')) }}
 		</div>
 	</div>
 
@@ -79,7 +91,7 @@
 	<div class="form-group">
 		{{ Form::label('town', 'Town',array('class' => 'col-md-2 control-label')) }}
 		<div class="col-md-5">
-			{{ Form::text('town',NULL, array('required' => true, 'class' => 'form-control')) }}
+			{{ Form::text('town',NULL, array('class' => 'form-control')) }}
 		</div>
 	</div>
 
@@ -87,7 +99,7 @@
 	<div class="form-group">
 		{{ Form::label('city', 'City',array('class' => 'col-md-2 control-label')) }}
 		<div class="col-md-5">
-			{{ Form::text('city',NULL, array('required' => true, 'class' => 'form-control')) }}
+			{{ Form::text('city',NULL, array('class' => 'form-control')) }}
 		</div>
 	</div>
 
@@ -95,10 +107,10 @@
 	<div class="form-group">
 		{{ Form::label('postcode', 'Post Code',array('class' => 'col-md-2 control-label')) }}
 		<div class="col-md-2">
-			{{ Form::text('postcode',NULL, array('required' => true, 'class' => 'form-control')) }}
+			{{ Form::text('postcode_1',NULL, array('class' => 'form-control')) }}
 		</div>
 		<div class="col-md-2">
-			{{ Form::text('postcode',NULL, array('required' => true, 'class' => 'form-control')) }}
+			{{ Form::text('postcode_2',NULL, array('class' => 'form-control')) }}
 		</div>
 	</div>
 

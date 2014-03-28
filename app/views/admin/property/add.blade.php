@@ -5,11 +5,10 @@
 <div class="container-fluid">
 
 <div class="row">
-	<h1>Add Property</h1>
+	<h1>Add Property <a href="{{ route('property.index') }}"><button type="button" class="btn btn-danger btn-lg">Back To Properties</button></a></h1>
 </div>
 
-{{ Session::get('message') }}
-
+<!-- Validation Errors -->
 <?php if ($errors->any()): ?>
 	<div class="alert alert-danger">
 		The following errors occurred:
@@ -27,7 +26,7 @@
 <div class="form-group">
 	{{ Form::label('title', 'Property Title',array('class' => 'col-sm-2 control-label')) }}
 	<div class="col-sm-4">
-		{{ Form::text('title','', array('required' => true,'class' => 'form-control', 'placeholder' => 'Enter a title for your property')) }}
+		{{ Form::text('title','', array('class' => 'form-control', 'placeholder' => 'Enter a title for your property')) }}
 	</div>
 </div>
 
@@ -35,7 +34,7 @@
 <div class="form-group">
 	{{ Form::label('description', 'Property Description',array('class' => 'col-sm-2 control-label')) }} 
 	<div class="col-sm-4">
-		{{ Form::text('description','', array('required' => true,'class' => 'form-control','placeholder' => 'Enter a description for your property')) }}
+		{{ Form::text('description','', array('class' => 'form-control','placeholder' => 'Enter a description for your property')) }}
 	</div>
 </div>
 
@@ -43,7 +42,7 @@
 <div class="form-group">
 	{{ Form::label('no_of_rooms', 'Number of Rooms',array('class' => 'col-sm-2 control-label')) }}
 	<div class="col-sm-4">
-		{{ Form::text('no_of_rooms','', array('required' => true,'class' => 'form-control','placeholder' => 'Enter the number of rooms')) }}
+		{{ Form::text('no_of_rooms','', array('class' => 'form-control','placeholder' => 'Enter the number of rooms')) }}
 	</div>
 </div>
 
@@ -53,20 +52,62 @@
 	<div class="col-sm-4">
 		<div class="input-group">
 			<span class="input-group-addon">£</span>
-			{{ Form::text('monthly_rent','', array('required' => true, 'class' => 'form-control','placeholder' => 'Monthly rent')) }}
+			{{ Form::text('monthly_rent','', array('class' => 'form-control','placeholder' => 'Monthly rent')) }}
 		</div>
 	</div>
 </div>
 
-		{{ Form::submit('Submit',array('class' => 'btn btn-primary btn-lg')) }}
-		<button type="button" class="btn btn-danger btn-lg"> Reset</button>
-
-
-
 
 	<h2>Address Details</h2>
+	<!-- Address 1 -->
+	<div class="form-group">
+		{{ Form::label('address_1', 'Address 1',array('class' => 'col-md-2 control-label')) }}
+		<div class="col-md-5">
+			{{ Form::text('address_1',NULL, array('class' => 'form-control')) }}
+		</div>
+	</div>
 
-	<h2>Add Images</h2>
+	<!-- Address 2 -->
+	<div class="form-group">
+		{{ Form::label('address_1', 'Address 2',array('class' => 'col-md-2 control-label')) }}
+		<div class="col-md-5">
+			{{ Form::text('address_2',NULL, array('class' => 'form-control')) }}
+		</div>
+	</div>
+
+	<!-- Town -->
+	<div class="form-group">
+		{{ Form::label('town', 'Town',array('class' => 'col-md-2 control-label')) }}
+		<div class="col-md-5">
+			{{ Form::text('town',NULL, array('class' => 'form-control')) }}
+		</div>
+	</div>
+
+	<!-- City -->
+	<div class="form-group">
+		{{ Form::label('city', 'City',array('class' => 'col-md-2 control-label')) }}
+		<div class="col-md-5">
+			{{ Form::text('city',NULL, array('class' => 'form-control')) }}
+		</div>
+	</div>
+
+	<!-- Post Code 1 -->
+	<div class="form-group">
+		{{ Form::label('postcode', 'Post Code',array('class' => 'col-md-2 control-label')) }}
+		<div class="col-md-2">
+			{{ Form::text('postcode_1',NULL, array('class' => 'form-control')) }}
+		</div>
+		<div class="col-md-2">
+			{{ Form::text('postcode_2',NULL, array('class' => 'form-control')) }}
+		</div>
+	</div>
+
+	<button class="btn btn-primary find_address">Find Address</button>
+
+
+	{{ Form::submit('Submit',array('class' => 'btn btn-primary btn-lg')) }}
+	<button type="button" class="btn btn-danger btn-lg"> Reset</button>
+
 
 
 {{ Form::close() }}
