@@ -69,7 +69,7 @@
 
 	<!-- Address 2 -->
 	<div class="form-group">
-		{{ Form::label('address_1', 'Address 2',array('class' => 'col-md-2 control-label')) }}
+		{{ Form::label('address_2', 'Address 2',array('class' => 'col-md-2 control-label')) }}
 		<div class="col-md-5">
 			{{ Form::text('address_2',NULL, array('class' => 'form-control')) }}
 		</div>
@@ -102,12 +102,32 @@
 		</div>
 	</div>
 
-	<button class="btn btn-primary find_address">Find Address</button>
+	<div class="row">
+		<div class="col-md-12">
+			<button class="btn btn-primary find_address">Find Latitude and Longitude</button>
+		</div>
+	</div>
+	
+	<div class="row">
+		<!-- Post Code 1 -->
+		<div class="form-group">
+			{{ Form::label('lat', 'Latitude',array('class' => 'col-md-2 control-label')) }}
+			<div class="col-md-2">
+				{{ Form::text('lat',NULL, array('class' => 'form-control')) }}
+			</div>
+
+			{{ Form::label('long', 'Longitude',array('class' => 'col-md-2 control-label')) }}
+			<div class="col-md-2">
+				{{ Form::text('long',NULL, array('class' => 'form-control')) }}
+			</div>
+		</div>
+	</div>
 
 
-	{{ Form::submit('Submit',array('class' => 'btn btn-primary btn-lg')) }}
-	<button type="button" class="btn btn-danger btn-lg"> Reset</button>
 
+	<div class="row">
+		{{ Form::submit('Submit',array('class' => 'btn btn-primary btn-lg')) }}
+	</div>
 
 
 {{ Form::close() }}

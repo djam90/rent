@@ -98,7 +98,6 @@ Route::post('admin/addProperty',array('as' => 'admin_postAddProperty', 'uses' =>
 Route::get('admin/property/edit/{id}',array('as'=>'admin_editProperty','uses'=>'PropertyController@getEditProperty'));
 Route::post('property/edit/{id}',array('as' =>'admin_postEditProperty','uses'=>'PropertyController@postEditProperty'));
 
-Route::post('property/editImage',array('as' => 'update_image_title', 'uses' => 'PropertyController@update_image_title'));
 
 }); // End Route Group
 
@@ -122,3 +121,4 @@ Route::get('test1', "LocationController@test");
  */
 Route::any('upload/image', 'AjaxController@upload_image');
 Route::post('deleteImage', 'AjaxController@remove_image');
+Route::post('admin/editImage',array('as' => 'update_image_title', 'uses' => 'AjaxController@update_image_title'));

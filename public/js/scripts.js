@@ -68,9 +68,12 @@ $('.deletePropertyButton').click(function() {
     }
 });
 
+/**
+ * Find Lat and Long
+ */
 $(".find_address").click(function(e){
     e.preventDefault();
-    alert("clicked");
+    getLatLong();
     
 });
 
@@ -111,6 +114,40 @@ $(document).ready(function () {
   });
 });
 
+
+
+function getLatLong()
+{
+	var geocoder = new google.maps.Geocoder();
+	var address = $('[name="address_1"]').val() 	+ ","
+				+ $('[name="address_2"]').val() 	+ ","
+				+ $('[name="town"]').val() 			+ ","
+				+ $('[name="city"]').val() 			+ ","
+				+ $('[name="postcode_1"]').val()
+				+ $('[name="postcode_2"]').val()
+	;
+	alert(address);
+	geocoder.geocode( { 'address': address}, function(results, status) {
+	if (status == google.maps.GeocoderStatus.OK)
+	{
+	    // do something with the geocoded result
+	    //
+	    // results[0].geometry.location.latitude
+	    // results[0].geometry.location.longitude
+
+	    var lat = results[0].geometry.location.lat();
+	    var lng = results[0].geometry.location.lng();
+
+	    $('[name="lat"]').val(lat);
+	    $('[name="long"]').val(lng);
+
+	}
+	});
+
+}
+
+
+
  
 // use Google Maps API to reverse geocode our location
 function printAddress(latitude, longitude, isMaxMind) {
@@ -143,34 +180,3 @@ function error(msg) {
   alert(msg);
 }
 
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Reverse Geocoding with HTML5 &amp; Google Demo | Ben Marshall</title>
-</head>
-<body>
-<input type="button" class="button" id="go" value="Click Me and I'll Guess Your Address!">
-<div id="results"></div>
-
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-<!-- <script src="http://j.maxmind.com/app/geoip.js"></script><!-- For our fallback -->
- -->
-
-
- <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
-
- <script src="script.js"></script>
-
-
-</body>
-</html>
-
-<?php
-
-
-
-?>

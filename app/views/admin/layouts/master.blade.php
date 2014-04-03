@@ -46,5 +46,8 @@
         <script src="{{ asset('js/dropzone.js') }}"></script>
         <script src="{{ asset('js/scripts.js') }}"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+        <script type="text/javascript"
+             src="http://maps.google.com/maps/api/js?sensor=false">
+        </script> 
     </body>
 </html>	
