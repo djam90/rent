@@ -18,6 +18,18 @@
 <div class="jumbotron">
 	<div class="page-header">
 		<h1>2Let <small>A search engine for private renters who want to avoid estate agents and fees</small></h1>
+		<h2>Search By: 
+			<select name="" id="">
+				<option value="">Town</option>
+				<option value="">City</option>
+				<option value="">Postcode</option>
+				<option value="">Map</option>
+			</select>
+
+			<input type="text" placeholder="Enter a location">
+
+			<button class="btn btn-primary btn-lg">Search</button>
+		</h2>
 	</div>
 </div>
 

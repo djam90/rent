@@ -5,3 +5,5 @@ composer.phar
 Thumbs.db
 /app/config/local/database.php
 /app/config/production/database.php
+/.idea
+/node_modules
