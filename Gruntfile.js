@@ -38,12 +38,42 @@ module.exports = function(grunt) {
             dynamic: {
                 files: [{
                     expand: true,
-                    cwd: 'images-orig/',
+                    cwd: 'public/img-orig/',
                     src: ['**/*.{png,jpg,gif}'],
-                    dest: 'images/'
+                    dest: 'public/img/'
                 }]
             }
-        }
+        },
+
+        // Watch
+        watch: {
+            sass: {
+                files: ['public/sass/**/*.scss'],
+                tasks: ['sass'],
+            },
+            uglify: {
+                files: ['public/js/scripts.js'],
+                tasks: ['uglify']
+            },
+            imagemin: {
+                files: ['public/img-orig/*.{png,jpg,gif}'],
+                tasks: ['imagemin']
+            },
+            livereload: {
+                options: {
+                    livereload: true
+                },
+                files: [
+                    'app/views/**/*.php', '/public/css/*.css'
+                ]
+            }
+
+        },
+
+
+
+
+
 
     });
 
@@ -51,9 +81,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
 
     // 4. Where we tell Grunt what to do when we type "grunt" into the terminal.
-    grunt.registerTask('default', ['sass', 'uglify', 'imagemin']);
+    grunt.registerTask('default', ['watch']);
 
 };
